@@ -38,7 +38,7 @@ class CampaignInfo extends Component {
     return (
       <div className='row animated fadeInRight'>
         { this.state.campaign.name }
-        { this.state.pages.map(p => p.page.name) }
+        { this.state.pages.map(p => p.page.page_name) }
       </div>
     )
   }
