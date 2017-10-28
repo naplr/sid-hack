@@ -1,13 +1,10 @@
 import React from 'react'
 
-import Paper from 'material-ui/Paper';
-import Grid from 'material-ui/Grid';
-import Divider from 'material-ui/Divider';
-
-import { red, grey } from 'material-ui/colors'
+import Paper from 'material-ui/Paper'
+import Grid from 'material-ui/Grid'
+import FacebookLogin from 'react-facebook-login'
 
 import apiClient from '../../api'
-import './home.scss'
 
 class Home extends React.Component {
   responseFacebook(props) {

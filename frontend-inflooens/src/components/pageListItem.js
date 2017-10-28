@@ -4,7 +4,7 @@ import Login from '../login'
 import Home from '../home'
 import CampaignInfo from '../campaignInfo'
 
-const App = () => (
+const PageListItem = ({ pageInfo }) => (
   <div>
     <main>
       <Route exact path="/" component={Login} />
@@ -14,4 +14,4 @@ const App = () => (
   </div>
 )
 
-export default App
+export default PageListItem
