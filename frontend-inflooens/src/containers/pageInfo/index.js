@@ -90,8 +90,6 @@ class PageInfo extends Component {
       return null
     }
 
-    console.log(state.data)
-
     return (
       <Grid container style={{ marginTop: '2em', marginBottom: '2em' }}>
         <Grid item xs />
@@ -107,7 +105,7 @@ class PageInfo extends Component {
                   <img src={state.page.page_profile} style={{ height: 50}} className={classes.image} />
                 </Grid>
                 <Grid item>    
-                  <Typography type="display2" className={classes.pageName}>{state.page.page_name}</Typography>
+                  <Typography type="display2" className={classes.pageName}>{state.page.page_title}</Typography>
                   <div style={{ marginBottom: '10px' }} />
                   <div>
                     <div className={classes.miniText}>ID: {state.page.page_id}</div>
@@ -123,7 +121,7 @@ class PageInfo extends Component {
                     color="primary" 
                     onClick={this.openDialog}
                     >
-                    <Add /> Claim
+                    <Add /> Add to Campaign
                   </Button>
                   <AddToCampaignDialog
                     closeDialog={this.closeDialog}
@@ -210,7 +208,7 @@ class PageInfo extends Component {
               <div className={classes.boxTitle}><People />&nbsp;User Frequency</div>
             </CardContent>
             <CardContent>
-              <BarChart width={420} height={400} data={state.data}>
+              <BarChart width={400} height={400} data={state.data}>
                 <XAxis dataKey="week"/>
                 <YAxis/>
                 <CartesianGrid strokeDasharray="3 3"/>
