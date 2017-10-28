@@ -9,7 +9,7 @@ import Dialog, { DialogTitle } from 'material-ui/Dialog'
 import PersonIcon from 'material-ui-icons/Person'
 import AddIcon from 'material-ui-icons/Add'
 import Typography from 'material-ui/Typography'
-import blue from 'material-ui/colors/blue'
+import { blue, red } from 'material-ui/colors'
 
 import apiClient from '../../api'
 
@@ -43,7 +43,7 @@ class UpdateStatusDialog extends Component {
     return (
       <Dialog onRequestClose={closeDialog} open={open}>
         <DialogTitle>Change Status</DialogTitle>
-        <div>
+        <div style={{ width: "300px" }}>
           <List>
             { Object.entries(STATUS).map(([text, value]) => (
               <ListItem 
@@ -51,6 +51,11 @@ class UpdateStatusDialog extends Component {
                 onClick={() => this.updatePageStatus(value)} key={text}
                 /* disabled={_.includes(this.state.existingCampaigns, campaign.id)}  */
               >
+                <ListItemAvatar>
+                  <Avatar>
+                    {text.charAt(0)}
+                  </Avatar>
+                </ListItemAvatar>
                 <ListItemText primary={text} />
               </ListItem>
             ))}

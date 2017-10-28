@@ -4,11 +4,13 @@ import Grid from 'material-ui/Grid'
 import Typography from 'material-ui/Typography'
 import List from 'material-ui/List'
 
-import PageCard from '../../components/pageCard'
+import Paper from 'material-ui/Paper'
+import PageCard from '../../components/PageCard'
 import apiClient from '../../api'
-import PageListItem from '../../components/pageListItem'
+import PageListItem from '../../components/PageListItem'
 import UpdateStatusDialog from './UpdateStatusDialog'
 import { translatePageStatus } from '../../common/util'
+import FunnelChart from '../../components/FunnelChart'
 
 class CampaignInfo extends Component {
   constructor(props) {
@@ -61,24 +63,38 @@ class CampaignInfo extends Component {
     }
 
     const grouped = _.groupBy(this.state.pages, p => p.status)
+    const funnelData = Object.entries(grouped).map(([status, pages]) => {
+      return { label: translatePageStatus(status), value: pages.length }
+    })
 
     return (
-      <div className='row animated fadeInRight'>
-        <Typography type="display3" gutterBottom>
-          {`Campaign: ${this.state.campaign.name}`}
-        </Typography>
-        <List>
-          {Object.entries(grouped).map(([status, pages]) => (
-            <PagesSection pages={pages} key={status} title={translatePageStatus(status)} selectPage={this.selectPage} />
-          ))}
-        </List>
-        <UpdateStatusDialog
-          pageId={this.state.selectedPageId}
-          campaignId={this.state.campaign.id}
-          open={this.state.isDialogOpen}
-          refresh={() => this.updatePages(this.state.campaign.id)}
-          closeDialog={this.closeDialog}
-        />
+      <div>
+        <Grid container style={{ margin: '15px'}} justify="center" direction="row">
+          <Grid item xs={9}>
+            <div><h1 style={{ fontWeight: 300 }}>
+              {`Campaign: ${this.state.campaign.name}`}
+            </h1></div>
+            <Grid container justify="center" direction="row" style={{margin: "15px"}}>
+              <Grid item xs={6}>
+                <FunnelChart data={funnelData} />
+              </Grid>
+              {/* <Grid item xs={6}>
+              </Grid> */}
+            </Grid>
+            <List>
+              {Object.entries(grouped).map(([status, pages]) => (
+                <PagesSection pages={pages} key={status} title={translatePageStatus(status)} selectPage={this.selectPage} />
+              ))}
+            </List>
+            <UpdateStatusDialog
+              pageId={this.state.selectedPageId}
+              campaignId={this.state.campaign.id}
+              open={this.state.isDialogOpen}
+              refresh={() => this.updatePages(this.state.campaign.id)}
+              closeDialog={this.closeDialog}
+            />
+          </Grid>
+        </Grid>
       </div>
     )
   }
@@ -86,12 +102,12 @@ class CampaignInfo extends Component {
 
 export default CampaignInfo
 
-const PagesSection = ({ title, pages, selectPage }) => <div>
+const PagesSection = ({ title, pages, selectPage }) => <div style={{ marginBottom: "25px"}}>
   <Typography type="display1" gutterBottom>
     {title}
   </Typography>
   <List>
-    {pages.map(p => <div>
+    {pages.map(p => <div key={p.id}>
       <PageListItem page={p.page} key={p.id} selectPage={selectPage} />
     </div>)}
   </List>
