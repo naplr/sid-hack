@@ -22,16 +22,36 @@ class Campaign(models.Model):
 
 
 class Page(models.Model):
-    name = models.CharField(max_length=256, null=True)
-    fbid = models.CharField(max_length=128, null=True)
+    page_id = models.CharField(max_length=256, null=True)
+    page_name = models.CharField(max_length=256, null=True)
+    page_category = models.CharField(max_length=256, null=True)
+    page_reactions_avg = models.IntegerField(null=True)
+    page_reactions_sd = models.IntegerField(null=True)
+    page_reactions_max = models.IntegerField(null=True)
+    page_reactions_min = models.IntegerField(null=True)
+    page_comments_avg = models.IntegerField(null=True)
+    page_comments_sd = models.IntegerField(null=True)
+    page_comments_max = models.IntegerField(null=True)
+    page_comments_min = models.IntegerField(null=True)
+    page_shares_avg = models.IntegerField(null=True)
+    page_shares_sd = models.IntegerField(null=True)
+    page_shares_max = models.IntegerField(null=True)
+    page_shares_min = models.IntegerField(null=True)
+    page_reactions_max_post_id = models.CharField(max_length=128, null=True)
+    page_comments_max_post_id = models.CharField(max_length=128, null=True)
+    page_shares_max_post_id = models.CharField(max_length=128, null=True)
+    page_post_count = models.IntegerField(null=True)
 
+    def __str__(self):
+        return '{} - {}'.format(self.page_name, self.page_id)
 
 class Post(models.Model):
-    page = models.ForeignKey(Page, on_delete=models.CASCADE, related_name='posts')
-    message = models.TextField(null=True)
-    like_count = models.PositiveIntegerField()
-    comment_count = models.PositiveIntegerField()
-    reaction_count = models.PositiveIntegerField()
+    post_id = models.CharField(max_length=256, null=True)
+    page_id = models.ForeignKey(Page, on_delete=models.CASCADE, related_name='posts')
+    created_time = models.DateField(null=True)
+    share_count = models.PositiveIntegerField(null=True)
+    comment_count = models.PositiveIntegerField(null=True)
+    reaction_count = models.PositiveIntegerField(null=True)
 
 
 class CampaignedPage(models.Model):
