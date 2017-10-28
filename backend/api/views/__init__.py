@@ -1,12 +1,14 @@
-from django.contrib.auth.models import User, Group
 from django.http import JsonResponse, HttpResponseBadRequest, HttpResponse, HttpResponseNotAllowed
 from django.views.decorators.csrf import csrf_exempt
 
 from rest_framework import viewsets
 from rest_framework.response import Response
+from django.views.decorators.csrf import csrf_exempt
 from sklearn.externals import joblib
 import json
 import pandas as pd
+
+from api.models import User
 
 
 # class UserViewSet(viewsets.ModelViewSet):
@@ -33,6 +35,7 @@ class TestViewSet(viewsets.ViewSet):
         return Response({'test': 'yo'})
 
 
+@csrf_exempt
 def login(request):
     if request.method == 'POST':
         data = json.loads(request.body.decode("utf-8"))
@@ -40,7 +43,30 @@ def login(request):
         if data is None:
             return HttpResponseBadRequest('Invalid JSON')
 
+        print(data)
+
         email = data['email'] 
-        fbid = data['id']
+        fbid = data['userID']
+        name = data['name']
+        token = data['accessToken']
+        picture = data['picture']['data']['url']
+
+        user, created = User.objects.get_or_create(fbid=fbid)
+
+        user.email=email,
+        user.name=name,
+        user.token=token,
+        user.picture=picture
+
+        user.save()
+
+        return JsonResponse({
+            'email': email,
+            'fbid': fbid,
+            'name': name,
+            'token': token,
+            'picture': picture,
+            'created': created
+        })
 
         # Do something

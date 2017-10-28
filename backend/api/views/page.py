@@ -10,7 +10,7 @@ from api.models import Page, Post
 class PageSerializer(serializers.ModelSerializer):
     class Meta:
         model = Page
-        fields = ('id', 'name', 'fbid')
+        fields = ('__all__')
 
 
 class PageViewSet(viewsets.ModelViewSet):

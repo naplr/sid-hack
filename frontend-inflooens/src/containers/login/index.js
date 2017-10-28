@@ -1,28 +1,30 @@
 import React from 'react'
+import FacebookLogin from 'react-facebook-login';
+
+import { push } from 'react-router-redux'
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
 
 import Paper from 'material-ui/Paper';
 import Grid from 'material-ui/Grid';
-import Divider from 'material-ui/Divider';
 
 import { red, grey } from 'material-ui/colors'
 
-import apiClient from '../../api'
-import './home.scss'
+import './login.scss'
 
-class Home extends React.Component {
+class Login extends React.Component {
   responseFacebook(props) {
     return (response) => {
-      apiClient.user.login(response)
-        .then(res => { 
-          props.changePage('/about-site');
-        })
+      console.log(response);
+      props.changePage('/home');
     }
   }
 
   render() {
     const props = this.props;
     return (
-        <Grid container style={{ flexGrow: 1, marginTop: '5em' }}>
+      <div>
+        <Grid container style={{ flexGrow: 1, marginTop: '5em', marginBottom: '5em' }}>
           <Grid item xs={12}>
             <Grid container justify="center">
               <Grid item xs />
@@ -31,7 +33,7 @@ class Home extends React.Component {
                   <Grid container justify="center">
                     <Grid item>
                       <div style={{ width: '100%', padding: '2em' }}>
-                        <img src="/logo.svg" />
+                        Logo
                       </div>
                     </Grid>
                   </Grid>
@@ -55,8 +57,22 @@ class Home extends React.Component {
             </Grid>
           </Grid>
         </Grid>
+      </div>
     )
   }
 }
 
-export default Home;
+const mapStateToProps = state => ({
+  count: state.counter.count,
+  isIncrementing: state.counter.isIncrementing,
+  isDecrementing: state.counter.isDecrementing
+})
+
+const mapDispatchToProps = dispatch => bindActionCreators({
+  changePage: (site) => push(site)
+}, dispatch)
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Login)

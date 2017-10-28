@@ -18,4 +18,5 @@ router.register(r'action/update-campaigned-page-status', campaign.ActionUpdateCa
 
 urlpatterns = [
     url(r'^', include(router.urls)),
+    url(r'^login/', views.login)
 ]
