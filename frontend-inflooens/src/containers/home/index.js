@@ -3,20 +3,13 @@ import React from 'react'
 import Grid from 'material-ui/Grid'
 import Button from 'material-ui/Button'
 import List from 'material-ui/List'
+import { map } from 'lodash'
 
 import { Add } from 'material-ui-icons'
 
-import TextField from 'material-ui/TextField';
-import Dialog, {
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
-} from 'material-ui/Dialog';
-
-
 import { white } from '../../styles/color'
 import CampaignItem from '../campaignItem'
+import AddCampaignModel from './addCampaignModel'
 
 class Home extends React.Component {
   state = {
@@ -31,33 +24,25 @@ class Home extends React.Component {
   }
 
   render() {
+
+    const campaignList = [
+      {
+        name: 'Campaign A'
+      },
+      {
+        name: 'Campaign B'
+      },
+      {
+        name: 'Campaign C'
+      }
+    ]
+
     return (
       <div>
-        <Dialog open={this.state.modelCampaignOpen} onRequestClose={() => this.handleModelCampaignOpen(false)}>
-          <DialogTitle>Subscribe</DialogTitle>
-          <DialogContent>
-            <DialogContentText>
-              To subscribe to this website, please enter your email address here. We will send
-              updates occationally.
-            </DialogContentText>
-            <TextField
-              autoFocus
-              margin="dense"
-              id="name"
-              label="Email Address"
-              type="email"
-              fullWidth
-            />
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={() => this.handleModelCampaignOpen(false)} color="primary">
-              Cancel
-            </Button>
-            <Button onClick={() => this.handleModelCampaignOpen(false)} color="primary">
-              Subscribe
-            </Button>
-          </DialogActions>
-        </Dialog>
+        <AddCampaignModel
+          open={this.state.modelCampaignOpen}
+          onClose={() => this.handleModelCampaignOpen(false)}
+          />
         <Grid container style={{ marginTop: '5em', marginBottom: '5em' }}>
           <Grid item xs />
           <Grid item xs={10}>
@@ -70,7 +55,9 @@ class Home extends React.Component {
             </div>
             <div style={{ marginTop: '1em' }}>
               <List>
-                { [0,1,2].map(k => <CampaignItem key={k} />) }
+                {
+                  map(campaignList, (v,k) => <CampaignItem key={k} name={v.name}/>)
+                }
               </List>
             </div>
           </Grid>

@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types';
 
 import Paper from 'material-ui/Paper'
 import ListItem from 'material-ui/List/ListItem'
@@ -17,7 +18,8 @@ const styles = theme => ({
 
 class CampaignItem extends React.Component {
   render() {
-    const { classes } = this.props;
+    const props = this.props;
+    const { classes } = props;
     return (
       <Paper elevation={1} className={classes.root}>
         <Grid container>
@@ -27,7 +29,7 @@ class CampaignItem extends React.Component {
             </Avatar>
           </Grid>
           <Grid item xs={9}>
-            <ListItemText primary="Name of Page" secondary="Users: 1,921,511" />
+            <ListItemText primary={props.name} secondary="Users: 1,921,511" />
           </Grid>
           <Grid item xs>
             <ListItemText primary="1M" secondary="Comments" />
@@ -40,5 +42,9 @@ class CampaignItem extends React.Component {
     )
   }
 }
+
+CampaignItem.propTypes = {
+  classes: PropTypes.string.isRequired,
+};
 
 export default withStyles(styles)(CampaignItem)
