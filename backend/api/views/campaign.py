@@ -84,15 +84,15 @@ class ActionUpdateCampaignedPageStatus(viewsets.ViewSet):
 
             cp = CampaignedPage.objects.get(page_id=pageid, campaign_id=campaignid)
 
-            if status == 'potential':
+            if status == CampaignedPage.POTENTIAL:
                 cp.status = CampaignedPage.POTENTIAL
-            elif status == 'interested':
+            elif status == CampaignedPage.INTERESTED:
                 cp.status = CampaignedPage.INTERESTED
-            elif status == 'engaged':
+            elif status == CampaignedPage.ENGAGED:
                 cp.status = CampaignedPage.ENGAGED
-            elif status == 'paid':
+            elif status == CampaignedPage.PAID:
                 cp.status = CampaignedPage.PAID
-            elif status == 'deleted':
+            elif status == CampaignedPage.DELETED:
                 cp.status = CampaignedPage.DELETED
 
             cp.save()

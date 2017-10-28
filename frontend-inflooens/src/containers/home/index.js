@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { withRouter } from 'react-router-dom'
 
 import Grid from 'material-ui/Grid'
 import Button from 'material-ui/Button'
@@ -10,26 +12,12 @@ import { Add } from 'material-ui-icons'
 import { white } from '../../styles/color'
 import CampaignItem from '../campaignItem'
 import AddCampaignModel from './addCampaignModel'
+import apiClient from '../../api'
+import { getUserCampaigns } from '../../modules/campaign'
 
 class Home extends React.Component {
   state = {
     modelCampaignOpen: false,
-    campaignList: [
-      {
-        name: 'Campaign A'
-      },
-      {
-        name: 'Campaign B'
-      },
-      {
-        name: 'Campaign C'
-      }
-    ]
-  }
-
-  constructor() {
-    super()
-    this.addCampaign = this.addCampaign.bind(this)
   }
 
   handleModelCampaignOpen(open = false) {
@@ -39,19 +27,21 @@ class Home extends React.Component {
     })
   }
 
-  addCampaign(name) {
-    this.setState({
-      ...this.state,
-      modelCampaignOpen: false,
-      campaignList: this.state.campaignList.concat({
-        name
+  addCampaign = name => {
+    apiClient.campaign.createCampaign(this.props.userId, name)
+      .then(res => {
+        this.props.getUserCampaigns(this.props.userId)
+        this.setState({
+          modelCampaignOpen: false
+        })
       })
-    })  
   }
 
   render() {
-
-    const campaignList = this.state.campaignList
+    const { campaigns } = this.props
+    if (!campaigns) {
+      return null
+    }
 
     return (
       <div>
@@ -73,7 +63,7 @@ class Home extends React.Component {
             <div style={{ marginTop: '1em' }}>
               <List>
                 {
-                  map(campaignList, (v,k) => <CampaignItem key={k} name={v.name}/>)
+                  campaigns.map((campaign, index) => <CampaignItem key={index} campaign={campaign}/>)
                 }
               </List>
             </div>
@@ -85,4 +75,14 @@ class Home extends React.Component {
   }
 }
 
-export default Home;
+const mapStateToProps = state => ({
+  campaigns: state.campaign.campaigns,
+  userId: state.user.userId
+})
+
+const actions = { getUserCampaigns }
+
+export default withRouter(connect(
+  mapStateToProps,
+  actions,
+)(Home))

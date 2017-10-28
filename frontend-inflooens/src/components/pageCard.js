@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
+import { push } from 'react-router-redux'
 import { withStyles } from 'material-ui/styles'
 import classnames from 'classnames'
 import Card, { CardHeader, CardMedia, CardContent, CardActions } from 'material-ui/Card'
@@ -32,7 +34,7 @@ const defaultImage = 'https://scontent.fbkk4-1.fna.fbcdn.net/v/t31.0-8/22467537_
 
 class PageCard extends Component {
   render() {
-    const { classes, page } = this.props
+    const { classes, page, push } = this.props
     console.log(page.page_name)
 
     return (
@@ -44,13 +46,13 @@ class PageCard extends Component {
                 R
               </Avatar>
             }
-            title={page.page_name}
+            title={page.page_title}
             subheader={page.page_category}
           />
           <CardMedia
             className={classes.media}
-            image={ defaultImage }
-            title="Contemplative Reptile"
+            image={ page.page_cover || defaultImage }
+            title=""
           />
           <CardContent>
             <Typography component="p">
@@ -61,7 +63,7 @@ class PageCard extends Component {
             <IconButton aria-label="Add to favorites">
               <FavoriteIcon />
             </IconButton>
-            <IconButton aria-label="Detail">
+            <IconButton aria-label="Detail" onClick={() => push(`/pages/${page.id}`)}>
               <InfoOutlineIcon />
             </IconButton>
             <div className={classes.flexGrow} />
@@ -77,4 +79,11 @@ PageCard.propTypes = {
   page: PropTypes.object,
 }
 
-export default withStyles(styles)(PageCard)
+const styled =  withStyles(styles)(PageCard)
+
+const actions = { push }
+
+export default connect(
+  null,
+  actions,
+)(styled)
