@@ -9,6 +9,8 @@ import App from './containers/app'
 import NavBar from './containers/navbar'
 import Footer from './containers/footer'
 
+import { MuiThemeProvider } from 'material-ui/styles'
+import { mainTheme } from './styles/theme'
 import './index.css'
 
 const target = document.querySelector('#root')
@@ -16,11 +18,11 @@ const target = document.querySelector('#root')
 ReactDOM.render(
   <Provider store={store}>
     <ConnectedRouter history={history}>
-      <div>
+      <MuiThemeProvider theme={mainTheme}>
         <NavBar />
         <App />
         <Footer />
-      </div>
+      </MuiThemeProvider>
     </ConnectedRouter>
   </Provider>,
   target

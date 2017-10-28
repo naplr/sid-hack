@@ -7,8 +7,6 @@ import Toolbar from 'material-ui/Toolbar';
 import Typography from 'material-ui/Typography';
 import Button from 'material-ui/Button';
 
-import { colorPrimary } from '../../styles/color'
-
 const styles = theme => ({
   root: {
     width: '100%',
@@ -22,7 +20,7 @@ function ButtonAppBar(props) {
   const { classes } = props;
   return (
     <div className={classes.root}>
-      <AppBar position="static" style={{ background: colorPrimary }}>
+      <AppBar position="static">
         <Toolbar>
           <Typography type="title" color="inherit" className={classes.flex}>
             Inflooens

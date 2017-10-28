@@ -20,8 +20,8 @@ class CampaignItem extends React.Component {
     const { classes } = this.props;
     return (
       <Paper elevation={1} className={classes.root}>
-        <Grid container justify='center'>
-          <Grid item xs justify='center'>
+        <Grid container>
+          <Grid item xs>
             <Avatar>
               <ImageIcon />
             </Avatar>
@@ -29,10 +29,10 @@ class CampaignItem extends React.Component {
           <Grid item xs={9}>
             <ListItemText primary="Name of Page" secondary="Users: 1,921,511" />
           </Grid>
-          <Grid item xs justify='center'>
+          <Grid item xs>
             <ListItemText primary="1M" secondary="Comments" />
           </Grid>
-          <Grid item xs justify='center'>
+          <Grid item xs>
             <ListItemText primary="15K" secondary="Likes" />
           </Grid>
         </Grid>
