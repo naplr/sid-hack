@@ -19,7 +19,7 @@ ReactDOM.render(
       <div>
         <NavBar />
         <App />
-        {/* <Footer /> */}
+        <Footer />
       </div>
     </ConnectedRouter>
   </Provider>,

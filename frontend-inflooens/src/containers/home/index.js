@@ -20,7 +20,7 @@ class Home extends React.Component {
           <div>
             <Button raised style={{ background: colorPrimary, color: white }}><Add /> Add Campaign</Button>
           </div>
-          <div>
+          <div style={{ marginTop: '1em' }}>
             <List>
               { [0,1,2].map(k => <CampaignItem key={k} />) }
             </List>
