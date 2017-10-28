@@ -21,7 +21,7 @@ class Login extends React.Component {
         .then(res => { 
           props.setUserId(res.id)
           props.getUserCampaigns(res.id)
-          // props.push('/home')
+          props.push('/home')
         })
     }
   }
