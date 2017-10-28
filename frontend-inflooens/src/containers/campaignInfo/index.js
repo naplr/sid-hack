@@ -41,7 +41,7 @@ class CampaignInfo extends Component {
       <div className='row animated fadeInRight'>
         {this.state.campaign.name}
         <div style={{ flexGrow: 1 }}>
-          <Grid container spacing={12}>
+          <Grid container spacing={16}>
             {this.state.pages.map(p => (
               <Grid item xs key={p.id}>
                 <PageCard page={p.page} />

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Route } from 'react-router-dom'
+import { Route, Switch, withRouter } from 'react-router-dom'
 import Login from '../login'
 import Home from '../home'
 import CampaignInfo from '../campaignInfo'
@@ -17,10 +17,12 @@ class App extends Component {
     return (
       <div>
         <main>
-          <Route exact path="/" component={Login} />
-          <Route exact path="/home" component={Home} />
-          <Route exact path="/campaigns/:campaignId" component={CampaignInfo} />
-          <Route exact path="/pages/:pageId" component={PageInfo} />
+          <Switch>
+            <Route exact path="/" component={Login} />
+            <Route exact path="/home" component={Home} />
+            <Route exact path="/campaigns/:campaignId" component={CampaignInfo} />
+            <Route exact path="/pages/:pageId" component={PageInfo} />
+          </Switch>
         </main>
       </div>
     )
@@ -33,7 +35,7 @@ const mapStateToProps = state => ({
 
 const actions = { getUserCampaigns }
 
-export default connect(
+export default withRouter(connect(
   mapStateToProps,
   actions,
-)(App)
+)(App))
