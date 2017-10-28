@@ -4,6 +4,7 @@ import AddIcon from 'material-ui-icons/Add'
 
 import apiClient from '../../api'
 import AddToCampaignDialog from './AddToCampaignDialog'
+import PageCard from '../../components/pageCard'
 
 class PageInfo extends Component {
   constructor(props) {
@@ -44,6 +45,7 @@ class PageInfo extends Component {
     return (
       <div>
         {this.state.page.page_name}
+        <PageCard page={this.state.page} />
         <Button 
           fab 
           color="primary" 
