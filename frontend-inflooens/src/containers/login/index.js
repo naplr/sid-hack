@@ -21,7 +21,7 @@ class Login extends React.Component {
         .then(res => { 
           props.setUserId(res.id)
           props.getUserCampaigns(res.id)
-          props.push('/home')
+          // props.push('/home')
         })
     }
   }
@@ -38,7 +38,7 @@ class Login extends React.Component {
                   <Grid container justify="center">
                     <Grid item>
                       <div style={{ width: '100%', padding: '2em' }}>
-                        <img src="logo.svg" alt="" />
+                        <img src="logo-red.svg" height="100" alt="" />
                       </div>
                     </Grid>
                   </Grid>
