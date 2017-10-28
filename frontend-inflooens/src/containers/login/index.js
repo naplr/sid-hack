@@ -3,6 +3,7 @@ import FacebookLogin from 'react-facebook-login'
 
 import { push } from 'react-router-redux'
 import { connect } from 'react-redux'
+import { withRouter } from 'react-router-dom'
 
 import Paper from 'material-ui/Paper'
 import Grid from 'material-ui/Grid'
@@ -67,7 +68,7 @@ class Login extends React.Component {
 
 const actions = { push, setUserId, getUserCampaigns }
 
-export default connect(
+export default withRouter(connect(
   null,
   actions,
-)(Login)
+)(Login))

@@ -1,5 +1,8 @@
 import React from 'react'
-import PropTypes from 'prop-types';
+import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
+import { push } from 'react-router-redux'
 
 import Paper from 'material-ui/Paper'
 import ListItem from 'material-ui/List/ListItem'
@@ -18,10 +21,11 @@ const styles = theme => ({
 
 class CampaignItem extends React.Component {
   render() {
-    const props = this.props;
-    const { classes } = props;
+    const { classes, push, campaign } = this.props
+    console.log(push)
     return (
-      <Paper elevation={1} className={classes.root}>
+      // <Link to={`/campaigns/${campaign.id}`}>
+      <Paper elevation={1} className={classes.root} onClick={() => push(`/campaigns/${campaign.id}`)}>
         <Grid container>
           <Grid item xs>
             <Avatar>
@@ -29,7 +33,7 @@ class CampaignItem extends React.Component {
             </Avatar>
           </Grid>
           <Grid item xs={8}>
-            <ListItemText primary={props.name} secondary="Users: 1,921,511" />
+            <ListItemText primary={campaign.name} secondary="Users: 1,921,511" />
           </Grid>
           <Grid item xs>
             <ListItemText primary="1M" secondary="Comments" />
@@ -39,12 +43,16 @@ class CampaignItem extends React.Component {
           </Grid>
         </Grid>
       </Paper>
+      // </Link>
     )
   }
 }
 
 CampaignItem.propTypes = {
   classes: PropTypes.object.isRequired,
-};
+}
 
-export default withStyles(styles)(CampaignItem)
+const actions = { push }
+
+const styled = withStyles(styles)(CampaignItem)
+export default connect(null, actions)(styled)

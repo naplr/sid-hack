@@ -54,3 +54,20 @@ export function postRequest(urlPath, data) {
             })
     })
 }
+
+export function translatePageStatus(status) {
+  const s = Number(status)
+  switch(s) {
+    case 0:
+      return 'Potential'
+    case 1:
+      return 'Interested'
+    case 2: 
+      return 'Engaged'
+    case 4:
+      return 'Paid'
+    case 8:
+    default:
+      return 'Deleted'
+  }
+}

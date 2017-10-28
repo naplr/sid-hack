@@ -44,6 +44,9 @@ class Page(models.Model):
     page_comments_max_post_id = models.CharField(max_length=128, null=True)
     page_shares_max_post_id = models.CharField(max_length=128, null=True)
     page_post_count = models.IntegerField(null=True)
+    claim_status = models.BooleanField(default=False)
+    page_fans_gender_age = models.TextField(null=True)
+    page_fan_adds_unique = models.IntegerField(null=True)
 
     def __str__(self):
         return '{} - {}'.format(self.page_name, self.page_id)

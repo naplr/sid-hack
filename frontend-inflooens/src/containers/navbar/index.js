@@ -1,6 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
+import { connect } from 'react-redux'
+import { push } from 'react-router-redux'
 import { withStyles } from 'material-ui/styles'
 
 import AppBar from 'material-ui/AppBar'
@@ -18,7 +20,7 @@ const styles = theme => ({
 });
 
 function ButtonAppBar(props) {
-  const { classes } = props;
+  const { classes, push } = props
   return (
     <div className={classes.root}>
       <AppBar position="static">
@@ -26,8 +28,11 @@ function ButtonAppBar(props) {
           <div className={classes.flex}>
             <img src="/logo-white.svg" height="45px" />
           </div>
-          <Button color="contrast">Campaigns</Button>
-          <Button color="contrast">Browse</Button>
+          {/* <Typography type="title" color="inherit" className={classes.flex}>
+            Inflooens
+          </Typography> */}
+          <Button color="contrast" onClick={() => push('/home')}>Campaigns</Button>
+          <Button color="contrast" onClick={() => push('/browse')}>Browse</Button>
           {/* <Link to="/home"><Button color="contrast">Campaigns</Button></Link>
           <Link to="/browser"><Button color="contrast">Browse</Button></Link> */}
         </Toolbar>
@@ -38,6 +43,8 @@ function ButtonAppBar(props) {
 
 ButtonAppBar.propTypes = {
   classes: PropTypes.object.isRequired,
-};
+}
 
-export default withStyles(styles)(ButtonAppBar);
+const actions = { push }
+
+export default connect(null, actions)(withStyles(styles)(ButtonAppBar))
