@@ -39,7 +39,7 @@ if __name__ == '__main__':
                                                     page_post_count=db_page.loc[i, 'page_post_count'])
 
 
-    page_names = ['bangkokeatbig', 'bornmadeak', 'DakNaeNon', 'dinewithpigs', 'paidonnnn', 'snapbeforeeatofficial', 'ipedinth', 'AroiTongShare']
+    page_names = ['bangkokeatbig', 'bornmadeak', 'DakNaeNon', 'dinewithpigs', 'paidonnnn', 'snapbeforeeatofficial', 'ipedinth', 'AroiTongShare', 'Dakmaipenyaadak', 'semagudak', 'daneating', 'badtaste.donteat', 'raosaidak', 'onnbaby', 'gin100', 'kintampro', 'kinlagthailand', 'Enjoyeatingbyme', 'aroiyummy', 'Unlucky2BDelicious']
     for page_name in page_names:
         temp_db = pd.read_csv('./../../data/summary2/'+page_name+'.csv')
         print(temp_db['page_id'][0])
