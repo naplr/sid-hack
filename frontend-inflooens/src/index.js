@@ -7,6 +7,7 @@ import registerServiceWorker from './registerServiceWorker';
 
 import App from './containers/app'
 import NavBar from './containers/navbar'
+import Footer from './containers/footer'
 
 import './index.css'
 
@@ -18,6 +19,7 @@ ReactDOM.render(
       <div>
         <NavBar />
         <App />
+        <Footer />
       </div>
     </ConnectedRouter>
   </Provider>,

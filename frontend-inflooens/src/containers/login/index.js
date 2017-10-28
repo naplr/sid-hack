@@ -16,7 +16,7 @@ class Login extends React.Component {
   responseFacebook(props) {
     return (response) => {
       console.log(response);
-      props.changePage('/about-site');
+      props.changePage('/home');
     }
   }
 
@@ -24,7 +24,7 @@ class Login extends React.Component {
     const props = this.props;
     return (
       <div>
-        <Grid container style={{ flexGrow: 1, marginTop: '5em' }}>
+        <Grid container style={{ flexGrow: 1, marginTop: '5em', marginBottom: '5em' }}>
           <Grid item xs={12}>
             <Grid container justify="center">
               <Grid item xs />
