@@ -1,10 +1,8 @@
 import React from 'react'
 
-import Paper from 'material-ui/Paper'
 import Grid from 'material-ui/Grid'
 import List from 'material-ui/List'
 import ListItem from 'material-ui/List/ListItem'
-import ListItemText from 'material-ui/List/ListItemText'
 import { Divider } from 'material-ui'
 
 import { grey } from 'material-ui/colors';

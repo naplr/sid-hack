@@ -7,8 +7,6 @@ import Toolbar from 'material-ui/Toolbar';
 import Typography from 'material-ui/Typography';
 import Button from 'material-ui/Button';
 
-import { red } from 'material-ui/colors';
-
 const styles = theme => ({
   root: {
     width: '100%',
