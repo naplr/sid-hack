@@ -1,5 +1,5 @@
 from django.contrib.auth.models import User, Group
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponseBadRequest, HttpResponse, HttpResponseNotAllowed
 from django.views.decorators.csrf import csrf_exempt
 
 from rest_framework import viewsets
@@ -38,3 +38,14 @@ import pandas as pd
 class TestViewSet(viewsets.ViewSet):
     def list(self, request):
         return Response({'test': 'yo'})
+
+
+def login(request):
+    if request.method == 'POST':
+        data = json.loads(request.body.decode("utf-8"))
+
+        if data is None:
+            return HttpResponseBadRequest('Invalid JSON')
+
+        email = data['email'] 
+        fbid = data['id']
