@@ -39,9 +39,17 @@ class CampaignInfo extends Component {
   updatePages = campaignId => {
     apiClient.campaign.getCampaignPages(campaignId)
       .then(pages => {
-        this.setState({
-          pages: pages
-        })
+        this.setState({ pages })
+
+        if (pages.length > 0) {
+          const pageIds = pages.map(p => Number(p.page.page_id))
+          return apiClient.page.getRecommenedPages(pageIds)
+        } else {
+          return []
+        }
+      })
+      .then(recommendedPages => {
+        this.setState({ recommendedPages })
       })
   }
 
@@ -59,7 +67,7 @@ class CampaignInfo extends Component {
   }
 
   render() {
-    if (!this.state.campaign || !this.state.pages) {
+    if (!this.state.campaign || !this.state.pages || !this.state.recommendedPages) {
       return null
     }
 
@@ -95,7 +103,7 @@ class CampaignInfo extends Component {
                 <div><h2 style={{ fontWeight: 300 }}>
                   Suggested Pages
                 </h2></div>
-                <PageGrid pages={grouped[0]} />
+                <PageGrid pages={this.state.recommendedPages.slice(0, 6)} countPerRow={3} />
 
                 <UpdateStatusDialog
                   pageId={this.state.selectedPageId}

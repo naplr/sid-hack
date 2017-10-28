@@ -20,9 +20,23 @@ class CampaignedPageSerializer(serializers.ModelSerializer):
 
 class CampaignSerializer(serializers.ModelSerializer):
     # pages = serializers.SerializerMethodField()
+    total_pages = serializers.SerializerMethodField()
+    total_engaged = serializers.SerializerMethodField()
+    total_paid = serializers.SerializerMethodField()
+
     class Meta:
         model = Campaign
         fields = ('__all__')
+
+    def get_total_pages(self, obj):
+      return obj.pages.count()
+
+    def get_total_engaged(self, obj):
+      return obj.pages.filter(status=CampaignedPage.ENGAGED).count()
+
+    def get_total_paid(self, obj):
+      return obj.pages.filter(status=CampaignedPage.PAID).count()
+
 
     # def get_pages(self, obj):
     #     serializers = CampaignedPageSerializer(

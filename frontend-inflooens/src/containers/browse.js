@@ -23,7 +23,7 @@ class Browse extends Component {
       return null
     }
 
-    return <PageGrid pages={this.state.pages} />
+    return <PageGrid pages={this.state.pages} countPerRow={4} />
   }
 }
 
