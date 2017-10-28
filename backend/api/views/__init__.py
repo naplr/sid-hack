@@ -17,13 +17,6 @@ import pandas as pd
 #     serializer_class = UserSerializer
 
 
-# class GroupViewSet(viewsets.ModelViewSet):
-#     """
-#     API endpoint that allows groups to be viewed or edited.
-#     """
-#     queryset = Group.objects.all()
-#     serializer_class = GroupSerializer
-
 
 # class PredictViewSet(viewsets.ViewSet):
 #     def create(self, request):
@@ -49,3 +42,5 @@ def login(request):
 
         email = data['email'] 
         fbid = data['id']
+
+        # Do something
