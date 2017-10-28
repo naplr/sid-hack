@@ -5,6 +5,7 @@ import Login from '../login'
 import Home from '../home'
 import CampaignInfo from '../campaignInfo'
 import PageInfo from '../pageInfo'
+import Browse from '../browse'
 
 import { getUserCampaigns } from '../../modules/campaign'
 
@@ -20,6 +21,7 @@ class App extends Component {
           <Switch>
             <Route exact path="/" component={Login} />
             <Route exact path="/home" component={Home} />
+            <Route exact path="/browse" component={Browse} />
             <Route exact path="/campaigns/:campaignId" component={CampaignInfo} />
             <Route exact path="/pages/:pageId" component={PageInfo} />
           </Switch>
