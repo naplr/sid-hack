@@ -13,19 +13,8 @@ import AddCampaignModel from './addCampaignModel'
 
 class Home extends React.Component {
   state = {
-    modelCampaignOpen: false
-  }
-
-  handleModelCampaignOpen(open = false) {
-    this.setState({
-      ...this.state,
-      modelCampaignOpen: open
-    })
-  }
-
-  render() {
-
-    const campaignList = [
+    modelCampaignOpen: false,
+    campaignList: [
       {
         name: 'Campaign A'
       },
@@ -36,12 +25,40 @@ class Home extends React.Component {
         name: 'Campaign C'
       }
     ]
+  }
+
+  constructor() {
+    super()
+    this.addCampaign = this.addCampaign.bind(this)
+  }
+
+  handleModelCampaignOpen(open = false) {
+    this.setState({
+      ...this.state,
+      modelCampaignOpen: open
+    })
+  }
+
+  addCampaign(name) {
+    this.setState({
+      ...this.state,
+      modelCampaignOpen: false,
+      campaignList: this.state.campaignList.concat({
+        name
+      })
+    })  
+  }
+
+  render() {
+
+    const campaignList = this.state.campaignList
 
     return (
       <div>
         <AddCampaignModel
           open={this.state.modelCampaignOpen}
           onClose={() => this.handleModelCampaignOpen(false)}
+          onAdd={this.addCampaign}
           />
         <Grid container style={{ marginTop: '5em', marginBottom: '5em' }}>
           <Grid item xs />

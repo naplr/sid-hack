@@ -28,7 +28,7 @@ class CampaignItem extends React.Component {
               <ImageIcon />
             </Avatar>
           </Grid>
-          <Grid item xs={9}>
+          <Grid item xs={8}>
             <ListItemText primary={props.name} secondary="Users: 1,921,511" />
           </Grid>
           <Grid item xs>
@@ -44,7 +44,7 @@ class CampaignItem extends React.Component {
 }
 
 CampaignItem.propTypes = {
-  classes: PropTypes.string.isRequired,
+  classes: PropTypes.object.isRequired,
 };
 
 export default withStyles(styles)(CampaignItem)

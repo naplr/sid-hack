@@ -19,9 +19,11 @@ ReactDOM.render(
   <Provider store={store}>
     <ConnectedRouter history={history}>
       <MuiThemeProvider theme={mainTheme}>
-        <NavBar />
-        <App />
-        <Footer />
+        <div>
+          <NavBar />
+          <App />
+          <Footer />
+        </div>
       </MuiThemeProvider>
     </ConnectedRouter>
   </Provider>,
