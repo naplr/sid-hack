@@ -5,9 +5,10 @@ import Typography from 'material-ui/Typography'
 import List from 'material-ui/List'
 
 import Paper from 'material-ui/Paper'
-import PageCard from '../../components/PageCard'
+import PageCard from '../../components/pageCard'
+import PageGrid from '../../components/PageGrid'
 import apiClient from '../../api'
-import PageListItem from '../../components/PageListItem'
+import PageListItem from '../../components/pageListItem'
 import UpdateStatusDialog from './UpdateStatusDialog'
 import { translatePageStatus } from '../../common/util'
 import FunnelChart from '../../components/FunnelChart'
@@ -74,25 +75,37 @@ class CampaignInfo extends Component {
             <div><h1 style={{ fontWeight: 300 }}>
               {`Campaign: ${this.state.campaign.name}`}
             </h1></div>
-            <Grid container justify="center" direction="row" style={{margin: "15px"}}>
-              <Grid item xs={6}>
-                <FunnelChart data={funnelData} />
+            { this.state.pages.length == 0 
+              ? <Grid container justify="center" direction="row" style={{margin: "15px"}}>
+                <Typography type="headline" style={{ margin: "45px" }}>
+                  No page in this campaign. Let's add some!
+                </Typography>
               </Grid>
-              {/* <Grid item xs={6}>
-              </Grid> */}
-            </Grid>
-            <List>
-              {Object.entries(grouped).map(([status, pages]) => (
-                <PagesSection pages={pages} key={status} title={translatePageStatus(status)} selectPage={this.selectPage} />
-              ))}
-            </List>
-            <UpdateStatusDialog
-              pageId={this.state.selectedPageId}
-              campaignId={this.state.campaign.id}
-              open={this.state.isDialogOpen}
-              refresh={() => this.updatePages(this.state.campaign.id)}
-              closeDialog={this.closeDialog}
-            />
+              : <div>
+                <Grid container justify="center" direction="row" style={{margin: "15px"}}>
+                  <Grid item xs={6}>
+                    <FunnelChart data={funnelData} />
+                  </Grid>
+                </Grid>
+                <List>
+                  {Object.entries(grouped).map(([status, pages]) => (
+                    <PagesSection pages={pages} key={status} title={translatePageStatus(status)} selectPage={this.selectPage} />
+                  ))}
+                </List>
+                <div><h2 style={{ fontWeight: 300 }}>
+                  Suggested Pages
+                </h2></div>
+                <PageGrid pages={grouped[0]} />
+
+                <UpdateStatusDialog
+                  pageId={this.state.selectedPageId}
+                  campaignId={this.state.campaign.id}
+                  open={this.state.isDialogOpen}
+                  refresh={() => this.updatePages(this.state.campaign.id)}
+                  closeDialog={this.closeDialog}
+                />
+              </div>
+            }
           </Grid>
         </Grid>
       </div>

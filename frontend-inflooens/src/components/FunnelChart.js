@@ -36,7 +36,12 @@ export default class FunnelChart extends Component {
   }
 
   redraw() {
-    const { data } = this.props
+    let data = this.props.data
+
+    // if (!data || data.length == 0) {
+    //   data = [{ label: 'N/A', value: 1 }]
+    // }
+
     const options = {
         block: {
             dynamicHeight: true,
