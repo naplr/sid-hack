@@ -23,10 +23,9 @@ function ButtonAppBar(props) {
     <div className={classes.root}>
       <AppBar position="static">
         <Toolbar>
-          <img src="/logo-white.svg" height="45px" />
-          {/* <Typography type="title" color="inherit" className={classes.flex}>
-            Inflooens
-          </Typography> */}
+          <div className={classes.flex}>
+            <img src="/logo-white.svg" height="45px" />
+          </div>
           <Button color="contrast">Campaigns</Button>
           <Button color="contrast">Browse</Button>
           {/* <Link to="/home"><Button color="contrast">Campaigns</Button></Link>
