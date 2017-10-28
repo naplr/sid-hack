@@ -1,33 +1,66 @@
 import React from 'react'
-import Button from 'material-ui/Button'
+import FacebookLogin from 'react-facebook-login';
+
 import { push } from 'react-router-redux'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import {
-  increment,
-  incrementAsync,
-  decrement,
-  decrementAsync
-} from '../../modules/counter'
 
-const Home = props => (
-  <div>
-    <h1>Home</h1>
-    <p>Count: {props.count}</p>
+import Paper from 'material-ui/Paper';
+import Grid from 'material-ui/Grid';
 
-    <p>
-      <Button onClick={props.increment} disabled={props.isIncrementing}>Increment</Button>
-      <button onClick={props.incrementAsync} disabled={props.isIncrementing}>Increment Async</button>
-    </p>
+import { red, grey } from 'material-ui/colors'
 
-    <p>
-      <button onClick={props.decrement} disabled={props.isDecrementing}>Decrementing</button>
-      <button onClick={props.decrementAsync} disabled={props.isDecrementing}>Decrement Async</button>
-    </p>
+import './home.scss'
 
-    <p><button onClick={() => props.changePage()}>Go to about page via redux</button></p>
-  </div>
-)
+class Home extends React.Component {
+  responseFacebook(props) {
+    return (response) => {
+      console.log(response);
+      props.changePage('/about-site');
+    }
+  }
+
+  render() {
+    const props = this.props;
+    return (
+      <div>
+        <Grid container style={{ flexGrow: 1, marginTop: '5em' }}>
+          <Grid item xs={12}>
+            <Grid container justify="center">
+              <Grid item xs />
+              <Grid item xs>
+                <Paper style={{ padding: '2em' }}>
+                  <Grid container justify="center">
+                    <Grid item>
+                      <div style={{ width: '100%', padding: '2em' }}>
+                        Logo
+                      </div>
+                    </Grid>
+                  </Grid>
+                  <Grid container justify="center">
+                    <Grid item stlye={{ padding: '2em' }}>
+                      <div>Login :</div>
+                      <div style={{ marginBottom: '1em' }} />
+                      <FacebookLogin
+                        appId="124895991530400"
+                        autoLoad={true}
+                        fields="name,email,picture"
+                        callback={this.responseFacebook(props)}
+                        cssClass="kep-login-facebook"
+                        icon="fa-facebook"
+                      />
+                    </Grid>
+                  </Grid>
+                </Paper>
+              </Grid>
+              <Grid item xs />
+            </Grid>
+          </Grid>
+        </Grid>
+      </div>
+    )
+  }
+}
 
 const mapStateToProps = state => ({
   count: state.counter.count,
@@ -36,11 +69,7 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => bindActionCreators({
-  increment,
-  incrementAsync,
-  decrement,
-  decrementAsync,
-  changePage: () => push('/about-us')
+  changePage: (site) => push(site)
 }, dispatch)
 
 export default connect(
