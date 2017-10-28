@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
+import Grid from 'material-ui/Grid';
 
+import PageCard from '../../components/pageCard'
 import apiClient from '../../api'
 
 class CampaignInfo extends Component {
@@ -37,8 +39,16 @@ class CampaignInfo extends Component {
 
     return (
       <div className='row animated fadeInRight'>
-        { this.state.campaign.name }
-        { this.state.pages.map(p => p.page.page_name) }
+        {this.state.campaign.name}
+        <div style={{ flexGrow: 1 }}>
+          <Grid container spacing={12}>
+            {this.state.pages.map(p => (
+              <Grid item xs key={p.id}>
+                <PageCard page={p.page} />
+              </Grid>
+            ))}
+          </Grid>
+        </div>
       </div>
     )
   }

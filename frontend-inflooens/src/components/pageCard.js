@@ -15,7 +15,7 @@ import InfoOutlineIcon from 'material-ui-icons/InfoOutline'
 
 const styles = theme => ({
   card: {
-    maxWidth: 400,
+    maxWidth: 300,
   },
   media: {
     height: 194,
@@ -33,6 +33,7 @@ const defaultImage = 'https://scontent.fbkk4-1.fna.fbcdn.net/v/t31.0-8/22467537_
 class PageCard extends Component {
   render() {
     const { classes, page } = this.props
+    console.log(page.page_name)
 
     return (
       <div>
