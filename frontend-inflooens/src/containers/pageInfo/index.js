@@ -1,12 +1,16 @@
 import React, { Component } from 'react'
+import Button from 'material-ui/Button'
+import AddIcon from 'material-ui-icons/Add'
 
 import apiClient from '../../api'
+import AddToCampaignDialog from './AddToCampaignDialog'
 
 class PageInfo extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      pageInfo: null,
+      page: null,
+      isDialogOpen: false
     }
   }
 
@@ -20,14 +24,39 @@ class PageInfo extends Component {
       })
   }
 
+  openDialog = () => {
+    this.setState({
+      isDialogOpen: true
+    }) 
+  }
+
+  closeDialog = () => {
+    this.setState({
+      isDialogOpen: false
+    })
+  }
+
   render() {
     if (!this.state.page) {
       return null
     }
 
     return (
-      <div className='row animated fadeInRight'>
-        { this.state.page.page_name }
+      <div>
+        {this.state.page.page_name}
+        <Button 
+          fab 
+          color="primary" 
+          style={{ position: 'fixed', right: '1rem', bottom: '1rem' }}
+          onClick={this.openDialog}
+        >
+          <AddIcon />
+        </Button>
+        <AddToCampaignDialog
+          closeDialog={this.closeDialog}
+          open={this.state.isDialogOpen}
+          pageId={this.state.page.id}
+        />
       </div>
     )
   }

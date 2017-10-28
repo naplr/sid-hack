@@ -1,18 +1,26 @@
 import React from 'react'
-import FacebookLogin from 'react-facebook-login';
+import FacebookLogin from 'react-facebook-login'
 
-import Paper from 'material-ui/Paper';
-import Grid from 'material-ui/Grid';
+import { push } from 'react-router-redux'
+import { connect } from 'react-redux'
 
-import apiClient from '../../api'
+import Paper from 'material-ui/Paper'
+import Grid from 'material-ui/Grid'
+
+
 import './login.scss'
+import { setUserId } from '../../modules/user'
+import { getUserCampaigns } from '../../modules/campaign'
+import apiClient from '../../api'
 
-class Home extends React.Component {
+class Login extends React.Component {
   responseFacebook(props) {
     return (response) => {
       apiClient.user.login(response)
         .then(res => { 
-          props.changePage('/home');
+          props.setUserId(res.id)
+          props.getUserCampaigns(res.id)
+          props.push('/home')
         })
     }
   }
@@ -57,4 +65,9 @@ class Home extends React.Component {
   }
 }
 
-export default Home;
+const actions = { push, setUserId, getUserCampaigns }
+
+export default connect(
+  null,
+  actions,
+)(Login)

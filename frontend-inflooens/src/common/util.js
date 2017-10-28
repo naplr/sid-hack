@@ -1,7 +1,25 @@
 import config from './config'
 
+function _stringifyParams(params) {
+  if (!params) {
+      return ''
+  }
+
+  const keys = Object.keys(params)
+  if (keys.length === 0) {
+      return ''
+  }
+
+  const q = keys.reduce((acc, key) => {
+      acc += `&${key}=${params[key]}`
+      return acc
+  }, '')
+
+  return q.substring(1)
+}
+
 export function getRequest(urlPath, params={}) {
-    const queryString = JSON.stringify(params)
+    const queryString = _stringifyParams(params)
 
     return new Promise((resolve, reject) => {
         fetch(`${config.baseApiUrl}${urlPath}?${queryString}`, { 

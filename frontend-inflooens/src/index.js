@@ -22,7 +22,7 @@ ReactDOM.render(
         <div>
           <NavBar />
           <App />
-          <Footer />
+          {/* <Footer /> */}
         </div>
       </MuiThemeProvider>
     </ConnectedRouter>

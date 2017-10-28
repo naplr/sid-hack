@@ -10,13 +10,6 @@ from rest_framework.response import Response
 from api.models import Campaign, CampaignedPage
 from .page import PageSerializer
 
-
-class CampaignSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Campaign
-        fields = ('__all__')
-
-
 class CampaignedPageSerializer(serializers.ModelSerializer):
     page = PageSerializer()
 
@@ -24,13 +17,33 @@ class CampaignedPageSerializer(serializers.ModelSerializer):
         model = CampaignedPage
         fields = ('__all__')
 
-    
+
+class CampaignSerializer(serializers.ModelSerializer):
+    # pages = serializers.SerializerMethodField()
+    class Meta:
+        model = Campaign
+        fields = ('__all__')
+
+    # def get_pages(self, obj):
+    #     serializers = CampaignedPageSerializer(
+    #         obj.pages,
+    #         many=True, 
+    #     )
+
+    #     return serializers.data
+
+
 class ActionAddPageToCampaign(viewsets.ViewSet):
     def create(self, request):
         try:
             pageid = request.data['pageId']
             campaignid = request.data['campaignId']
             cp, created = CampaignedPage.objects.get_or_create(page_id=pageid, campaign_id=campaignid)
+
+            if cp.status == CampaignedPage.DELETED:
+                cp.status = CampaignedPage.POTENTIAL
+                cp.save()
+
             return Response({
                 'id': str(cp.id),
                 'created': created
