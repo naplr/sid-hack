@@ -17,6 +17,9 @@ if __name__ == '__main__':
     for i in db_page.index:
         page, created = Page.objects.get_or_create(page_id=db_page.loc[i, 'page_id'],
                                                     page_name=db_page.loc[i, 'page_name'],
+                                                    page_title=db_page.loc[i, 'page_title'],
+                                                    page_profile=db_page.loc[i, 'page_profile'],
+                                                    page_cover=db_page.loc[i, 'page_cover'],
                                                     page_category=db_page.loc[i, 'page_category'],
                                                     page_reactions_avg=db_page.loc[i, 'page_reactions_avg'],
                                                     page_reactions_sd=db_page.loc[i, 'page_reactions_sd'],

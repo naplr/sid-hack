@@ -24,6 +24,9 @@ class Campaign(models.Model):
 class Page(models.Model):
     page_id = models.CharField(max_length=256, null=True)
     page_name = models.CharField(max_length=256, null=True)
+    page_title = models.CharField(max_length=256, null=True)
+    page_profile = models.CharField(max_length=512, null=True)
+    page_cover = models.CharField(max_length=512, null=True)
     page_category = models.CharField(max_length=256, null=True)
     page_reactions_avg = models.IntegerField(null=True)
     page_reactions_sd = models.IntegerField(null=True)
