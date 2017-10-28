@@ -84,6 +84,7 @@ class PageInfo extends Component {
     const props = this.props
     const classes = props.classes
     const state = this.state
+    const page = state.page
 
     if (!this.state.page) {
       return null
@@ -140,10 +141,10 @@ class PageInfo extends Component {
         <Grid item xs={4}>
           <Card>
             <CardContent style={{ background: orange[700] }}>
-              <div className={classes.boxTitle}><People />&nbsp;Engagement</div>
+              <div className={classes.boxTitle}><People />&nbsp;Reactions Average</div>
             </CardContent>
             <CardContent>
-              <Typography type="display1">123</Typography>
+              <Typography type="display1">{page.page_reactions_avg}</Typography>
             </CardContent>  
           </Card>
           <div style={{ marginBottom: '2em' }} />
@@ -152,7 +153,7 @@ class PageInfo extends Component {
               <div className={classes.boxTitle}><Timeline />&nbsp;Post Frequency</div>
             </CardContent>
             <CardContent>
-              <Typography type="display1">123</Typography>
+              <Typography type="display1">{page.page_post_count}</Typography>
             </CardContent>  
           </Card>
           <div style={{ marginBottom: '0.75em' }} />
@@ -163,7 +164,12 @@ class PageInfo extends Component {
                   <div className={classes.boxTitle}><Favorite />&nbsp;Likes</div>
                 </CardContent>
                 <CardContent>
-                  <Typography type="display1">123</Typography>
+                  <Typography type="body1">
+                    Min: {page.page_reactions_min}<br />
+                    Avg: {page.page_reactions_avg}<br />
+                    SD: {page.page_reactions_sd}<br />
+                    Max: {page.page_reactions_max}
+                  </Typography>
                 </CardContent>  
               </Card>
             </Grid>
@@ -173,7 +179,12 @@ class PageInfo extends Component {
                   <div className={classes.boxTitle}><Share />&nbsp;Shares</div>
                 </CardContent>
                 <CardContent>
-                  <Typography type="display1">123</Typography>
+                  <Typography type="body1">
+                    Min: {page.page_shares_min}<br />
+                    Avg: {page.page_shares_avg}<br />
+                    SD: {page.page_shares_sd}<br />
+                    Max: {page.page_shares_max}
+                  </Typography>
                 </CardContent>  
               </Card>
             </Grid>
@@ -183,7 +194,12 @@ class PageInfo extends Component {
                   <div className={classes.boxTitle}><Comment />&nbsp;Comments</div>
                 </CardContent>
                 <CardContent>
-                  <Typography type="display1">123</Typography>
+                  <Typography type="body1">
+                    Min: {page.page_comments_min}<br />
+                    Avg: {page.page_comments_avg}<br />
+                    SD: {page.page_comments_sd}<br />
+                    Max: {page.page_comments_max}
+                  </Typography>
                 </CardContent>  
               </Card>
             </Grid>
@@ -194,8 +210,7 @@ class PageInfo extends Component {
               <div className={classes.boxTitle}><People />&nbsp;User Frequency</div>
             </CardContent>
             <CardContent>
-              <BarChart width={420} height={400} data={state.data}
-                    margin={{top: 10, right: 10, left: 0, bottom: 0}}>
+              <BarChart width={420} height={400} data={state.data}>
                 <XAxis dataKey="week"/>
                 <YAxis/>
                 <CartesianGrid strokeDasharray="3 3"/>
