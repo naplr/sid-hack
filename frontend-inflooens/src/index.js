@@ -21,7 +21,7 @@ ReactDOM.render(
       <MuiThemeProvider theme={mainTheme}>
         <NavBar />
         <App />
-        <Footer />
+        {/* <Footer /> */}
       </MuiThemeProvider>
     </ConnectedRouter>
   </Provider>,

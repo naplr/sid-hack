@@ -1,9 +1,13 @@
 import { getRequest, postRequest } from '../common/util'
 
 export function getCampaignInfo(campaignId) {
-    return getRequest(`/campaigns/${campaignId}`)
+  return getRequest(`/campaigns/${campaignId}`)
 }
 
 export function getCampaignPages(campaignId) {
-    return getRequest(`/campaigns/${campaignId}/pages`)
+  return getRequest(`/campaigns/${campaignId}/pages`)
+}
+
+export function getUserCampaigns(userId) {
+  return getRequest('/campaigns/', { userid: userId })
 }

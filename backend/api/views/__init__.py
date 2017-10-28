@@ -61,6 +61,7 @@ def login(request):
         user.save()
 
         return JsonResponse({
+            'id': user.id,
             'email': email,
             'fbid': fbid,
             'name': name,

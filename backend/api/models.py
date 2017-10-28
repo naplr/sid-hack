@@ -45,6 +45,7 @@ class Page(models.Model):
     def __str__(self):
         return '{} - {}'.format(self.page_name, self.page_id)
 
+
 class Post(models.Model):
     post_id = models.CharField(max_length=256, null=True)
     page_id = models.ForeignKey(Page, on_delete=models.CASCADE, related_name='posts')
