@@ -118,9 +118,16 @@ class PageInfo extends Component {
     const state = this.state
     const page = state.page
 
+
     if (!this.state.page || !this.state.recommendedPages) {
       return null
     }
+
+    const monthlyData = [
+      {month: '1 Month', value: this.state.page.page_post_1_month_ago},
+      {month: '2 Month', value: this.state.page.page_post_2_month_ago},
+      {month: '3 Month', value: this.state.page.page_post_3_month_ago},
+    ]
 
     return <div>
       <Grid container style={{ marginTop: '2em', marginBottom: '2em' }}>
@@ -205,7 +212,7 @@ class PageInfo extends Component {
           <div style={{ marginBottom: '2em' }} />
           <Card>
             <CardContent style={{ background: amber[700] }}>
-              <div className={classes.boxTitle}><Timeline />&nbsp;Post Frequency</div>
+              <div className={classes.boxTitle}><Timeline />&nbsp;Post Stat</div>
             </CardContent>
             <CardContent>
               <Typography type="display1">{page.page_post_count}</Typography>
@@ -262,11 +269,11 @@ class PageInfo extends Component {
           <div style={{ marginBottom: '1.5em' }} />
           <Card>
             <CardContent style={{ background: amber[500] }}>
-              <div className={classes.boxTitle}><People />&nbsp;User Frequency</div>
+              <div className={classes.boxTitle}><People />&nbsp;Post Frequency</div>
             </CardContent>
             <CardContent>
-              <BarChart width={400} height={400} data={state.data}>
-                <XAxis dataKey="week"/>
+              <BarChart width={400} height={400} data={monthlyData}>
+                <XAxis dataKey="month"/>
                 <YAxis/>
                 <CartesianGrid strokeDasharray="3 3"/>
                 <Tooltip/>

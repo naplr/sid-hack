@@ -29,7 +29,7 @@ class CampaignSerializer(serializers.ModelSerializer):
         fields = ('__all__')
 
     def get_total_pages(self, obj):
-      return obj.pages.count()
+      return obj.pages.exclude(status=CampaignedPage.DELETED).count()
 
     def get_total_engaged(self, obj):
       return obj.pages.filter(status=CampaignedPage.ENGAGED).count()
