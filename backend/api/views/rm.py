@@ -21,7 +21,7 @@ class RecommendationModel(viewsets.ViewSet):
         for page_id in pageIds:
             print(pages_list.index(page_id))
             corr_mat_selected = corr_mat[pages_list.index(page_id)]
-            for page_id_recommended in list(page_ids[(corr_mat_selected<1.0) & (corr_mat_selected>0.6)]):
+            for page_id_recommended in list(page_ids[(corr_mat_selected<0.99) & (corr_mat_selected>0.6)]):
                 page_id_recommended_final.append(page_id_recommended)
 
         # print(list(set(page_id_recommended_final)))
