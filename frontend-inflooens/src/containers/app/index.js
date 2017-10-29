@@ -10,9 +10,9 @@ import Browse from '../browse'
 import { getUserCampaigns } from '../../modules/campaign'
 
 class App extends Component {
-  componentWillMount() {
-    this.props.getUserCampaigns(this.props.userId)
-  }
+  // componentWillMount() {
+  //   this.props.getUserCampaigns(this.props.userId)
+  // }
 
   render() {
     return (

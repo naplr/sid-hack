@@ -77,8 +77,8 @@ class PageInfo extends Component {
       .then(page => {
         this.setState({ page })
 
-        // return apiClient.page.getRecommenedPages([Number(page.page_id)])
-        return []
+        return apiClient.page.getRecommenedPages([Number(page.page_id)])
+        // return []
       })
       .then(recommendedPages => {
         this.setState({ recommendedPages })

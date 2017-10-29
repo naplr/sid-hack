@@ -15,14 +15,20 @@ import { getUserCampaigns } from '../../modules/campaign'
 import apiClient from '../../api'
 
 class Login extends React.Component {
+  state = {
+    signingIn: false
+  }
+
   responseFacebook(props) {
     return (response) => {
-      apiClient.user.login(response)
-        .then(res => { 
-          props.setUserId(res.id)
-          props.getUserCampaigns(res.id)
-          props.push('/home')
-        })
+      if (this.state.signingIn) {
+        apiClient.user.login(response)
+          .then(res => { 
+            props.setUserId(res.id)
+            props.getUserCampaigns(res.id)
+            props.push('/home')
+          })
+      }
     }
   }
 
@@ -53,6 +59,7 @@ class Login extends React.Component {
                         callback={this.responseFacebook(props)}
                         cssClass="kep-login-facebook"
                         icon="fa-facebook"
+                        onClick={() => this.setState({ signingIn: true })}
                       />
                     </Grid>
                   </Grid>
