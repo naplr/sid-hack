@@ -13,7 +13,7 @@ import Card, { CardMedia, CardHeader, CardContent } from 'material-ui/Card';
 import Typography from 'material-ui/Typography'
 import { withStyles } from 'material-ui/styles'
 
-import { grey, orange, amber } from 'material-ui/colors'
+import { grey, orange, amber, red } from 'material-ui/colors'
 import { BarChart, XAxis, YAxis, CartesianGrid, Tooltip, Bar } from 'recharts'
 import PageGrid from '../../components/PageGrid'
 import FacebookLogin from 'react-facebook-login'
@@ -77,7 +77,8 @@ class PageInfo extends Component {
       .then(page => {
         this.setState({ page })
 
-        return apiClient.page.getRecommenedPages([Number(page.page_id)])
+        // return apiClient.page.getRecommenedPages([Number(page.page_id)])
+        return []
       })
       .then(recommendedPages => {
         this.setState({ recommendedPages })
@@ -165,25 +166,30 @@ class PageInfo extends Component {
           </Card>
           {/* <img src= style={{ height: 300 }} className={classes.image} /> */}
           <div style={{ marginBottom: '20px' }} />
-          <Grid container justify="center" direction="row">
-            <Grid item xs={12}>
+            {/* <Grid item xs={12}> */}
               { this.state.page.claim_status
-                ? <div>Claimed!</div>
-                : this.state.failedClaim
-                  ? <div>Falied Claim!</div> 
-                  : <FacebookLogin
-                  appId="124895991530400"
-                  autoLoad={true}
-                  fields="name,email,picture"
-                  scope="read_insights"
-                  callback={res => this.claimPage(res)}
-                  cssClass="kep-login-facebook"
-                  icon="fa-facebook"
-                  onClick={() => this.setState({ claiming: true })}
-                />
+                ? <ClaimedStat page={this.state.page} boxTitle={classes.boxTitle} />
+                : <Grid container justify="center" direction="row">
+                  { this.state.failedClaim
+                    ? <div>
+                      <Typography type="body1" style={{ marginTop: "15px" }}>Unsuccessful claim attempt ...</Typography>
+                    </div>
+                    : <div style={{ marginTop: "15px" }}>
+                      <Typography type="body1" style={{ marginBottom: "15px" }}>Claim your page:</Typography>
+                      <FacebookLogin
+                        appId="124895991530400"
+                        autoLoad={true}
+                        fields="name,email,picture"
+                        scope="read_insights"
+                        callback={res => this.claimPage(res)}
+                        cssClass="kep-login-facebook"
+                        icon="fa-facebook"
+                        onClick={() => this.setState({ claiming: true })}
+                      />
+                    </div>
+                  }
+                  </Grid>
               }
-            </Grid>
-          </Grid>
           
         </Grid>
 
@@ -286,3 +292,48 @@ class PageInfo extends Component {
 }
 
 export default withStyles(styles)(PageInfo)
+
+const ClaimedStat = ({ page, boxTitle }) => {
+  const fans = JSON.parse(page.page_fans_gender_age)
+
+  // const formatted = [
+  //   { age: '35-44', F: 208, M: 266 },
+  //   { age: '18-24', F: 10, M: 120 },
+  // ]
+
+  const fansMap = Object.entries(fans).reduce((acc, [key, value]) => {
+    const [gender, age] = key.split('.')
+
+    if (!acc[age]) {
+      acc[age] = {}
+    }
+
+    acc[age][gender] = value
+    return acc
+  }, {})
+
+  const formatted = Object.keys(fansMap).map(age => {
+    return { age: age, F: fansMap[age].F, M: fansMap[age].M }
+  })
+
+  const last_week_unique_fans_added = page.page_fan_adds_unique
+  return <div>
+    <Card>
+      <CardContent style={{ background: amber[500] }}>
+        <div className={boxTitle}><People />&nbsp;User Demographics</div>
+      </CardContent>
+      <CardContent>
+        <BarChart width={400} height={400} data={formatted}>
+          <XAxis dataKey="age"/>
+          <YAxis/>
+          <CartesianGrid strokeDasharray="3 3"/>
+          <Tooltip/>
+          <Bar dataKey="F" fill={ amber[500] } />
+          <Bar dataKey="M" fill={ red[500] } />
+        </BarChart>
+      </CardContent>
+    </Card>
+    {/* <Typography type="body1">{ fans['F.18-24'] }</Typography>
+    <Typography type="body1">{ last_week_unique_fans_added }</Typography> */}
+  </div>
+}
