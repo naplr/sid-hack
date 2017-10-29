@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import Grid from 'material-ui/Grid';
 
-import PageCard from '../components/pageCard'
+import PageGrid from '../components/PageGrid'
 import apiClient from '../api'
 
 class Browse extends Component {
@@ -23,19 +23,7 @@ class Browse extends Component {
       return null
     }
 
-    return (
-      <div>
-        <div style={{ flexGrow: 1 }}>
-          <Grid container spacing={16}>
-            {this.state.pages.map(p => (
-              <Grid item xs key={p.id}>
-                <PageCard page={p} />
-              </Grid>
-            ))}
-          </Grid>
-        </div>
-      </div>
-    )
+    return <PageGrid pages={this.state.pages} countPerRow={4} />
   }
 }
 

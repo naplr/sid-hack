@@ -14,6 +14,8 @@ import FavoriteIcon from 'material-ui-icons/Favorite'
 import ShareIcon from 'material-ui-icons/Share'
 import ExpandMoreIcon from 'material-ui-icons/ExpandMore'
 import InfoOutlineIcon from 'material-ui-icons/InfoOutline'
+import ListItemText from 'material-ui/List/ListItemText'
+import Grid from 'material-ui/Grid'
 
 const styles = theme => ({
   card: {
@@ -42,9 +44,7 @@ class PageCard extends Component {
         <Card className={classes.card}>
           <CardHeader
             avatar={
-              <Avatar className={classes.avatar}>
-                R
-              </Avatar>
+              <Avatar className={classes.avatar} src={ page.page_profile} />
             }
             title={page.page_title}
             subheader={page.page_category}
@@ -55,9 +55,25 @@ class PageCard extends Component {
             title=""
           />
           <CardContent>
-            <Typography component="p">
+            <Grid
+              container
+              alignItems="center"
+              direction="row"
+              justify="space-around"
+            >
+              <Grid item>
+                <ListItemText primary={page.page_reactions_avg} secondary="Likes" />
+              </Grid>
+              <Grid item>
+                <ListItemText primary={page.page_comments_avg} secondary="Comments" />
+              </Grid>
+              <Grid item>
+                <ListItemText primary={page.page_shares_avg} secondary="Shares" />
+              </Grid>
+            </Grid>
+            {/* <Typography component="p">
               {`Like: ${page.page_reactions_avg}, Comment: ${page.page_shares_avg}, Shares: ${page.page_shares_avg}`}
-            </Typography>
+            </Typography> */}
           </CardContent>
           <CardActions disableActionSpacing>
             <IconButton aria-label="Add to favorites">

@@ -23,6 +23,10 @@ export function addPageToCampaign(pageId, campaignId) {
   })
 }
 
+export function getRecommenedPages(pageIds) {
+  return postRequest('/pages_recommendation/', { pageIds })
+}
+
 export function updateStatus(pageId, campaignId, status) {
   return postRequest('/action/update-campaigned-page-status/', {
     pageId,

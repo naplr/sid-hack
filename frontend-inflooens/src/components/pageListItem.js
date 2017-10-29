@@ -30,25 +30,33 @@ class PageListItem extends React.Component {
       // <Paper elevation={1} className={classes.root} onClick={() => push(`/pages/${page.id}`)}>
       <Paper elevation={1} className={classes.root}>
         <Grid container>
-          <Grid item xs>
-            <Avatar src={page.page_profile} />
+          <Grid item xs={6}>
+            <Grid container>
+              <Grid item xs>
+                <Avatar src={page.page_profile} />
+              </Grid>
+              <Grid item xs={8}>
+                <ListItemText primary={page.page_title} secondary={`Posts: ${page.page_post_count}`} onClick={() => push(`/pages/${page.id}`)} />
+              </Grid>
+            </Grid>
           </Grid>
-          <Grid item xs={8}>
-            <ListItemText primary={page.page_title} secondary={`Posts: ${page.page_post_count}`} onClick={() => push(`/pages/${page.id}`)} />
-          </Grid>
-          <Grid item xs>
-            <ListItemText primary={page.page_reactions_avg} secondary="Likes" />
-          </Grid>
-          <Grid item xs>
-            <ListItemText primary={page.page_comments_avg} secondary="Comments" />
-          </Grid>
-          <Grid item xs>
-            <ListItemText primary={page.page_shares_avg} secondary="Shares" />
-          </Grid>
-          <Grid item xs>
-              <IconButton onClick={() => selectPage(page.id)}>
-                <LabelIcon />
-              </IconButton>
+          <Grid item xs={6}>
+            <Grid container>
+              <Grid item xs>
+                <ListItemText primary={page.page_reactions_avg} secondary="Likes" />
+              </Grid>
+              <Grid item xs>
+                <ListItemText primary={page.page_comments_avg} secondary="Comments" />
+              </Grid>
+              <Grid item xs>
+                <ListItemText primary={page.page_shares_avg} secondary="Shares" />
+              </Grid>
+              <Grid item xs>
+                <IconButton onClick={() => selectPage(page.id)}>
+                  <LabelIcon />
+                </IconButton>
+              </Grid>
+            </Grid>
           </Grid>
         </Grid>
       </Paper>
