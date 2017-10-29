@@ -47,6 +47,9 @@ class Page(models.Model):
     claim_status = models.BooleanField(default=False)
     page_fans_gender_age = models.TextField(null=True)
     page_fan_adds_unique = models.IntegerField(null=True)
+    page_post_1_month_ago = models.IntegerField(null=True)
+    page_post_2_month_ago = models.IntegerField(null=True)
+    page_post_3_month_ago = models.IntegerField(null=True)
 
     def __str__(self):
         return '{} - {}'.format(self.page_name, self.page_id)

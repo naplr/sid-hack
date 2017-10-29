@@ -36,7 +36,10 @@ if __name__ == '__main__':
                                                     page_reactions_max_post_id=db_page.loc[i, 'page_reactions_max_post_id'],
                                                     page_comments_max_post_id=db_page.loc[i, 'page_comments_max_post_id'],
                                                     page_shares_max_post_id=db_page.loc[i, 'page_shares_max_post_id'],
-                                                    page_post_count=db_page.loc[i, 'page_post_count'])
+                                                    page_post_count=db_page.loc[i, 'page_post_count'],
+                                                    page_post_1_month_ago=db_page.loc[i, 'page_post_1_month_ago'],
+                                                    page_post_2_month_ago=db_page.loc[i, 'page_post_2_month_ago'],
+                                                    page_post_3_month_ago=db_page.loc[i, 'page_post_3_month_ago'],)
 
 
     page_names = ['bangkokeatbig', 'bornmadeak', 'DakNaeNon', 'dinewithpigs', 'paidonnnn', 'snapbeforeeatofficial', 'ipedinth', 'AroiTongShare', 'Dakmaipenyaadak', 'semagudak', 'daneating', 'badtaste.donteat', 'raosaidak', 'onnbaby', 'gin100', 'kintampro', 'kinlagthailand', 'Enjoyeatingbyme', 'aroiyummy', 'Unlucky2BDelicious', 'friendguha']
