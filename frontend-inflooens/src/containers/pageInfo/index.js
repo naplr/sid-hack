@@ -15,6 +15,8 @@ import { withStyles } from 'material-ui/styles'
 
 import { grey, orange, amber } from 'material-ui/colors'
 import { BarChart, XAxis, YAxis, CartesianGrid, Tooltip, Bar } from 'recharts'
+import PageGrid from '../../components/PageGrid'
+import FacebookLogin from 'react-facebook-login'
 
 const styles = theme => ({
   miniText: {
@@ -45,6 +47,8 @@ class PageInfo extends Component {
     super(props)
     this.state = {
       page: null,
+      claiming: false,
+      failedClaim: false,
       isDialogOpen: false,
       data: [
         {week: 'Week 1', value: 52},
@@ -60,12 +64,25 @@ class PageInfo extends Component {
 
   componentWillMount() {
     const pageId = this.props.match.params.pageId
+    this.updatePage(pageId)
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const pageId = nextProps.match.params.pageId
+    this.updatePage(pageId)
+  }
+
+  updatePage = pageId => {
     apiClient.page.getPageInfo(pageId)
       .then(page => {
-        this.setState({
-          page
-        })
+        this.setState({ page })
+
+        return apiClient.page.getRecommenedPages([Number(page.page_id)])
       })
+      .then(recommendedPages => {
+        this.setState({ recommendedPages })
+      })
+
   }
 
   openDialog = () => {
@@ -80,20 +97,34 @@ class PageInfo extends Component {
     })
   }
 
+  claimPage = res => {
+    if (this.state.claiming) {
+      console.log(res)
+      apiClient.page.claimPage(this.state.page.page_id, res.accessToken)
+        .then(res => {
+          if (!res.success) {
+            this.setState({ failedClaim: true })
+          } else {
+            this.updatePage(this.state.page.id)
+          }
+        })
+    }
+  }
+
   render() {
     const props = this.props
     const classes = props.classes
     const state = this.state
     const page = state.page
 
-    if (!this.state.page) {
+    if (!this.state.page || !this.state.recommendedPages) {
       return null
     }
 
-    return (
+    return <div>
       <Grid container style={{ marginTop: '2em', marginBottom: '2em' }}>
         <Grid item xs />
-        <Grid item xs={4}>
+        <Grid item xs={5}>
           <Card>
             <CardMedia
               style={{ height: 300 }}
@@ -134,9 +165,29 @@ class PageInfo extends Component {
           </Card>
           {/* <img src= style={{ height: 300 }} className={classes.image} /> */}
           <div style={{ marginBottom: '20px' }} />
+          <Grid container justify="center" direction="row">
+            <Grid item xs={12}>
+              { this.state.page.claim_status
+                ? <div>Claimed!</div>
+                : this.state.failedClaim
+                  ? <div>Falied Claim!</div> 
+                  : <FacebookLogin
+                  appId="124895991530400"
+                  autoLoad={true}
+                  fields="name,email,picture"
+                  scope="read_insights"
+                  callback={res => this.claimPage(res)}
+                  cssClass="kep-login-facebook"
+                  icon="fa-facebook"
+                  onClick={() => this.setState({ claiming: true })}
+                />
+              }
+            </Grid>
+          </Grid>
           
         </Grid>
-        <Grid item xs={4}>
+
+        <Grid item xs={5}>
           <Card>
             <CardContent style={{ background: orange[700] }}>
               <div className={classes.boxTitle}><People />&nbsp;Reactions Average</div>
@@ -220,12 +271,18 @@ class PageInfo extends Component {
         </Grid>
         <Grid item xs />
       </Grid>
-    )
+      <Grid container>
+        <Grid item xs />
+        <Grid item xs={10}>
+          <div><h2 style={{ fontWeight: 300 }}>
+            Suggested Pages
+          </h2></div>
+          <PageGrid pages={this.state.recommendedPages.slice(0, 6)} countPerRow={3} />
+        </Grid>
+        <Grid item xs />
+      </Grid>
+    </div>
   }
-}
-
-PageCard.propTypes = {
-  classes: PropTypes.object.isRequired,
 }
 
 export default withStyles(styles)(PageInfo)

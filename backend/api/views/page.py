@@ -41,14 +41,18 @@ class PageViewSet(viewsets.ModelViewSet):
 
 class ActionClaimPage(viewsets.ViewSet):
     def create(self, request):
-        pageId = request.data['pageId']
-        pageAccessToken = request.data['access_token']
-        graph = facebook.GraphAPI(pageAccessToken, version='2.10')
-        page_fans_gender_age_json = graph.get_object('/{}/insights/page_fans_gender_age'.format(pageId))['data'][0]['values'][-1]['value']
-        page_fans_gender_age = json.dumps(page_fans_gender_age_json)
-        page_fan_adds_unique = graph.get_object('/{}/insights/page_fan_adds_unique?period=week'.format(pageId))['data'][0]['values'][-1]['value']
-        page = Page.objects.get(page_id=pageId)
-        page.claim_status = True
-        page.page_fan_adds_unique = page_fan_adds_unique
-        page.page_fans_gender_age = page_fans_gender_age
-        page.save()
+        try:
+          pageId = request.data['pageId']
+          pageAccessToken = request.data['access_token']
+          graph = facebook.GraphAPI(pageAccessToken, version='2.10')
+          page_fans_gender_age_json = graph.get_object('/{}/insights/page_fans_gender_age'.format(pageId))['data'][0]['values'][-1]['value']
+          page_fans_gender_age = json.dumps(page_fans_gender_age_json)
+          page_fan_adds_unique = graph.get_object('/{}/insights/page_fan_adds_unique?period=week'.format(pageId))['data'][0]['values'][-1]['value']
+          page = Page.objects.get(page_id=pageId)
+          page.claim_status = True
+          page.page_fan_adds_unique = page_fan_adds_unique
+          page.page_fans_gender_age = page_fans_gender_age
+          page.save()
+          return Response({'sucess': True})
+        except facebook.GraphAPIError:
+          return Response({'success': False})

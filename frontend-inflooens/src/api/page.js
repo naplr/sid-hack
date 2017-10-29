@@ -34,3 +34,12 @@ export function updateStatus(pageId, campaignId, status) {
     status
   })
 }
+
+export function claimPage(pageId, token) {
+  const data = {
+    pageId,
+    access_token: token
+  }
+
+  return postRequest('/action/claim-page/', data)
+}
