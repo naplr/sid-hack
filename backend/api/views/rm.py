@@ -13,8 +13,8 @@ from .page import PageSerializer
 class RecommendationModel(viewsets.ViewSet):
     def create(self, request):
         pageIds = request.data['pageIds']
-        corr_mat = joblib.load('./scripts/recommendation_model.pk')
-        page_ids = joblib.load('./scripts/page_ids.pk')
+        corr_mat = joblib.load('./scripts/recommendation_model_bycomment.pk')
+        page_ids = joblib.load('./scripts/page_ids_bycomment.pk')
         print(list(page_ids))
         page_id_recommended_final = []
         pages_list = list(page_ids)
