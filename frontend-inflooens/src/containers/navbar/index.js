@@ -26,7 +26,7 @@ function ButtonAppBar(props) {
       <AppBar position="static">
         <Toolbar>
           <div className={classes.flex}>
-            <Link to="/home"><img src="/logo-white.svg" height="45px" /></Link>
+            <Link to="/"><img src="/logo-white.svg" height="45px" /></Link>
           </div>
           {/* <Typography type="title" color="inherit" className={classes.flex}>
             Inflooens

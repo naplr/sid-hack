@@ -20,6 +20,14 @@ class Home extends React.Component {
     modelCampaignOpen: false,
   }
 
+  componentWillMount() {
+    this.props.getUserCampaigns(this.props.userId)
+  }
+
+  componentWillReceieveProps(nextProps) {
+    nextProps.getUserCampaigns(nextProps.userId)
+  }
+
   handleModelCampaignOpen(open = false) {
     this.setState({
       ...this.state,
